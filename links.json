@@ -1,17 +1,8 @@
 [
   {
-    "title": "Match 1 : Paris vs Lyon",
-    "type": "youtube",
-    "embed": "https://www.youtube.com/embed/AAA111"
+    "title": "Match 1",
+    "type": "live",
+    "embed": "https://www.hesgoal.watch/sport-tv3/"
   },
-  {
-    "title": "Msite",
-    "type": "site",
-    "channel": "https://www.hesgoal.watch"
-  },
-  {
-    "title": "Match 3 : Bordeaux vs Nice",
-    "type": "hls",
-    "embed": "https://tonserveur.com/flux3.m3u8"
-  }
+
 ]
