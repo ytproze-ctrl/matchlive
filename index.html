@@ -50,25 +50,40 @@
     h1 {
       margin-bottom: 20px;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-    .card {
-      background: #161b22;
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-    iframe, video {
-      width: 100%;
-      height: 250px;
-      border-radius: 10px;
-      border: none;
-      background: #000;
-    }
+    /* Conteneur général des cartes */
+.grid {
+  display: flex;
+  flex-direction: column; /* un flux par ligne */
+  align-items: center;
+  gap: 60px; /* espace entre les flux */
+  padding: 30px;
+}
+
+/* Chaque carte (flux) */
+.card {
+  width: 95%;              /* presque pleine largeur */
+  max-width: 1600px;       /* limite sur très grands écrans */
+  height: 90vh;            /* occupe presque toute la hauteur visible */
+  background: #161b22;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* Agrandit les vidéos/iframes */
+iframe, video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  background: #000;
+  object-fit: cover;
+}
+
     h3 {
       margin-top: 10px;
       font-size: 1.1em;
