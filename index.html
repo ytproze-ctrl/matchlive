@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon site de streaming foot</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    iframe {
+      width: 80%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚽ Diffusion en direct</h1>
+  <p>Regarde le match en live ci-dessous 👇</p>
+
+  <!-- 🔗 Intègre ici ton flux vidéo (par exemple YouTube Live, Vimeo, etc.) -->
+  <iframe 
+    src="https://www.youtube.com/embed/TON_LIEN_LIVE" 
+    allowfullscreen>
+  </iframe>
+
+  <p>© 2025 — Ton nom / ta société de diffusion</p>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Foot – Multi Matchs</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .card {
+      background: #161b22;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    iframe, video {
+      width: 100%;
+      height: 250px;
+      border-radius: 10px;
+      border: none;
+      background: #000;
+    }
+    h3 {
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚽ Live Foot – Tous les matchs</h1>
+  <div class="grid" id="streams"></div>
+
+  <script>
+    async function chargerFlux() {
+      try {
+        const res = await fetch('links.json', {cache: "no-store"});
+        const flux = await res.json();
+        const container = document.getElementById('streams');
+
+        flux.forEach(f => {
+          const div = document.createElement('div');
+          div.className = 'card';
+          let player = '';
+
+          if (f.type === 'youtube') {
+            player = `<iframe src="${f.embed}" allowfullscreen></iframe>`;
+          } else if (f.type === 'twitch') {
+            const parent = location.hostname;
+            player = `<iframe src="https://player.twitch.tv/?channel=${f.channel}&parent=${parent}" allowfullscreen></iframe>`;
+          } else if (f.type === 'hls') {
+            player = `<video controls autoplay><source src="${f.embed}" type="application/x-mpegURL"></video>`;
+          }
+
+          div.innerHTML = `${player}<h3>${f.title}</h3>`;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById('streams').textContent = 'Erreur de chargement des flux.';
+      }
+    }
+
+    chargerFlux();
+  </script>
+</body>
+</html>
