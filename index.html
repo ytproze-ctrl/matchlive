@@ -1,125 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon site de streaming foot</title>
-  <style>
-    body {
-      background-color: #0d1117;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    iframe {
-      width: 80%;
-      height: 500px;
-      border: none;
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1>⚽ Diffusion en direct</h1>
-  <p>Regarde le match en live ci-dessous 👇</p>
-
-
- <p>© 2025 — fr3zing / ta société de diffusion</p>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Foot – Multi Matchs</title>
-  <style>
-    body {
-      background-color: #0d1117;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    /* Conteneur général des cartes */
-.grid {
-  display: flex;
-  flex-direction: column; /* un flux par ligne */
-  align-items: center;
-  gap: 60px; /* espace entre les flux */
-  padding: 30px;
-}
-
-/* Chaque carte (flux) */
-.card {
-  width: 95%;              /* presque pleine largeur */
-  max-width: 1600px;       /* limite sur très grands écrans */
-  height: 90vh;            /* occupe presque toute la hauteur visible */
-  background: #161b22;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-/* Agrandit les vidéos/iframes */
-iframe, video {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 12px;
-  background: #000;
-  object-fit: cover;
-}
-
-    h3 {
-      margin-top: 10px;
-      font-size: 1.1em;
-    }
-  </style>
+  <title>Flux Foot — Lecteur unique</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>⚽ Live Foot – Tous les matchs</h1>
-  <div class="grid" id="streams"></div>
+  <main>
+    <h1>⚽ Flux Foot — Lecteur unique</h1>
+    <p>Une page simple — 1 flux par match. (Assurez-vous d’avoir les droits de diffusion.)</p>
 
-  <script>
-    async function chargerFlux() {
-      try {
-        const res = await fetch('links.json', {cache: "no-store"});
-        const flux = await res.json();
-        const container = document.getElementById('streams');
+    <div id="info"></div>
 
-        flux.forEach(f => {
-          const div = document.createElement('div');
-          div.className = 'card';
-          let player = '';
+    <div id="player-container">
+      <iframe id="player" allowfullscreen></iframe>
+    </div>
+  </main>
 
-          if (f.type === 'youtube') {
-            player = `<iframe src="${f.embed}" allowfullscreen></iframe>`;
-          } else if (f.type === 'twitch') {
-            const parent = location.hostname;
-            player = `<iframe src="https://player.twitch.tv/?channel=${f.channel}&parent=${parent}" allowfullscreen></iframe>`;
-          } else if (f.type === 'hls') {
-            player = `<video controls autoplay><source src="${f.embed}" type="application/x-mpegURL"></video>`;
-          }
-
-          div.innerHTML = `${player}<h3>${f.title}</h3>`;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        console.error(err);
-        document.getElementById('streams').textContent = 'Erreur de chargement des flux.';
-      }
-    }
-
-    chargerFlux();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
+
